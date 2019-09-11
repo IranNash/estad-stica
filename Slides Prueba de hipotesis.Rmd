@@ -1,0 +1,212 @@
+---
+title: "Prueba de Hipótesis Paramétrica"
+author: "Irán Apolinar Peredo Cortes"
+date: ''
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
+  beamer_presentation: default
+logo: logolest.png
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Motivación
+
+<font size=5>
+
+* Supongamos que tenemos un conjunto de variables aleatorias $X_{1}\dots X_{n}$ y nosotros queremos saber si $X_{1}\sim N(\hat{\theta}, \sigma_{\hat{\theta}})$.
+* Este es un problema de **prueba de hipótesis**.
+* Muchas de nuestras suposiciones podrían ser falsas:
+    + $E[X_{1}] \neq \hat{\theta}$
+    + $Var[X_{1}]\neq \sigma_{\hat{\theta}}$
+    + $X_{1}$ no siga una distribución normal.
+
+Si aceptamos el supuesto de $Var[X_{1}] = \sigma_{\hat{\theta}}$ y que $X_{1}$ se distribuye normalmente, podríamos hacernos preguntas acerca de $\hat{\theta}$.
+
+</font>
+
+## Estudio de caso:
+
+<font size=4>
+Se realiza un estudio sobre los efectos de tres tipos de alternativas en el tratamiento de la anemia. En una muestra de 60 pacientes se prueba el efecto de la transfusion, ATG (globulina antitimocítica) y transfusion más ATG, todos en grupos independientes de 20 pacientes. Se registra el conteo de plaquetas antes y despues del tratamiento, así como el sexo del paciente. Un investigador puede preguntarse si el conteo de plaquetas esperado antes de cualquier tratamiento sea menor a 150. La media de esta muestra fue de 101.18 unidades.
+</font>
+<H1 align="center">
+<img src="graph2.png" alt="drawing" width="500"/>
+</H1>
+
+
+
+## Solución Heurística
+
+Podríamos simplemente pensar que:$$ \text{Si}\hspace{2mm} \bar{\theta_{n}}=101.18 \implies \theta < 150$$ Podríamos estar cometiendo un error ya que, para probar esta afirmación, podríamos seleccionar aleatoriamente pacientes que superen las 150 unidades en el conteo de plaquetas. Una mejor solución heurística sería: $$\text{Si}\hspace{2mm} \bar{\theta_{n}}=101.18 \left\{\text{A medida que}\hspace{2mm} \xrightarrow{n \longrightarrow \infty} \right\} \implies \theta < 150$$ Esta intuición es más precisa, debemos tomar en cuenta el tamaño de las fluctuaciones aleatias de $\hat{\theta_{n}}$.
+
+
+
+## Prueba de Hipótesis
+
+<div style="background-color:mistyrose;padding:3px;">
+<p>
+**Definición 1. ** Se comete un *error del tipo 1* si la hipótesis $H_{0}$ es rechazada cuando $H_{0}$ es verdadera. La probabilidad de cometer el error tipo 1 es $\alpha$. El valor de $\alpha$ se denomina nivel de la prueba. Se comete un *error del tipo 2* si $H_{0}$ es aceptada cuando $H_{a}$ es verdadera. La probabilidade de cometer el error tipo 2 es $\beta$.
+</p>
+
+</div> 
+
+<font size=4>
+
+**¿Cómo reducir los errores?** 
+
+"Debemos aumentar el tamaño de la muestra para conocer la verdadera naturaleza de la información. Para casi todos los procesos estadísticos, si $\alpha$ esta fijo en algún valor aceptable, $\beta$ disminuye cuando el tamaño de la muestra aumenta. (Wackerly, Mendenhall y Scheaffer, 2009)."
+</font>
+
+## Prueba de Hipótesis
+Ejemplo de prueba de hipótesis
+<font size=3>
+
+ - $H_{0}: \theta = \theta_{0}$
+ - $H_{a}: \theta > \theta_{0}$
+ - $\text{Estadístico de prueba} \hspace{2mm} \hat{\theta}\sim N(\theta , \sigma_{\hat{\theta}})$
+ - Región de rechazo RR = $\{ \hat{\theta}>k \}$ Para alguna selección de $k$.
+
+</font>
+<H1 align="center">
+<img src="graph1.png" alt="drawing" width="560"/>
+</H1>
+
+## Prueba de Hipótesis
+<font size=4>
+El valor real de $k$ depende de $\alpha$. Podemos decir que $k$, al estar para este ejemplo, en un extremo de la cola derecha de la distribución, dependerá de la suma del centro de la distrubución $\theta_{0}$ más alguna variable $z_{\alpha}$ (ya que $k$ debe depender de $\alpha$) que multiplica a la desviación estandar de $\hat{\theta}$:$$k=\theta_{0}+z_{\alpha}\sigma_{\hat{\theta}}$$
+La región de rechazo será aquella en la cual $\hat{\theta}>k$, es decir:$$\text{RR}= \left\{\hat{\theta}: \hat{\theta}>\theta_{0}+z_{\alpha}\sigma_{\hat{\theta}}\right\}=\left\{\hat{\theta}:\frac{\hat{\theta}-\theta_{0}}{\sigma_{\hat{\theta}}}>z_{\alpha} \right\}$$
+Podemos redefinir $Z=(\hat{\theta}-\theta_{0})/\sigma_{\hat{\theta}}$ como el estadístico de prueba, donde $z \in Z$ es un valor calculado dentro del estadístico. La región de rechazo, una vez calculado $z$ se define ahora como $z>z_{\alpha}$. 
+
+</font>
+
+## Prueba de Hipótesis
+
+Por tanto, una prueba de hipótesis con nivel $\alpha$ es la siguiente:
+<font size=4>
+
+* $H_{0}: \theta = \theta_{0}$
+* $H_{a}: \theta > \theta_{0}$
+* Estadístico de prueba: $Z=\frac{\hat{\theta}-\theta_{0}}{\sigma_{\hat{\theta}}}$
+* Región de rechazo RR = $\{ z>z_{\alpha} \}$.
+
+$H_{0}$ es rechazada si $Z$ cae suficientemente alejada en la *cola superior* de la distribución. La hipótesis alternativa $H_{a}:\theta > \theta_{0}$  se denomina alternativa de cola superior y RR $=\{ z>z_{\alpha} \}$ se conoce como *región de rechazo de cola superior*. Observe que la fórmula precedente para $Z$ es sencillamente: $$Z=\frac{\text{estimador para el parámetro - valor del parámetro dado por}\hspace{1mm} H_{0}}{\text{error estándar del estimador}}$$
+</font>
+
+## Prueba de Hipótesis
+
+<font size=4>
+<div style="background-color:mistyrose;padding:4px;">
+<p>
+**Definición 2. ** Las pruebas de hipótesis de nivel $\alpha$ con varianza conocida o para muestras grandes se definene como:
+
+$H_{0}: \theta = \theta_{0}$
+
+$H_{a}: \begin{cases} 
+      \theta > \theta_{0}  & \text{(alternativa de cola superior).} \\
+      \theta < \theta_{0}  & \text{(alternativa de cola inferior).} \\ 
+      \theta \neq \theta_{0} & \text{(alternativa de dos colas).} 
+   \end{cases}$
+
+Estadístico de Prueba: $Z=\frac{\hat{\theta} - \theta_{0}}{\sigma_{\hat{\theta}}}$
+
+Región de rechazo: $\begin{cases}
+\{ z > z_{\alpha} \} & \text{(RR de cola superior.)}\\
+\{z < -z_{\alpha} \} & \text{(RR de cola inferior.)}\\
+\{|z| > z_{\frac{\alpha}{2}}\} & \text{(RR de dos colas.)}\\
+\end{cases}$
+
+</p>
+</div> 
+</font>
+
+## Ejemplo 1 ($\sigma_{\hat{\theta}}$ conocida).
+<font size=4>
+Suponga que en la etiqueta de un paquete de galletas indica que hay 2g de grasas saturadas en una sola galleta. En una muetra de 100 galletas se encuentra que la cantidad media de grasa saturada en una sola galleta es de 2.68g. Si la desviación estandar de la población es de 0.25g. Con un nivel de significancia de 0.05, ¿podemos aceptar lo que indica la etiqueta?
+</font>
+
+**Solución**
+
+<font size=4>
+La hipótesis que estamos interesados en probar es: $$H_{0}: \theta = 2 \hspace{4mm}\text{vs} \hspace{4mm} H_{a}: \theta \neq 2 $$
+dado que $n$ es lo suficientemente grande, la media muestral $\bar{\theta}$ es un estimador puntual de $\theta$ que está distribuido normalmente, además $\sigma_{\bar{\theta}} = \sigma / \sqrt{n}$. En consecuencia, nuestro estadístico de prueba es:
+$$Z=\frac{\hat{\theta}-\theta_{0}}{\sigma_{\hat{\theta}}}=\frac{\bar{\theta}-\theta_{0}}{\frac{\sigma}{\sqrt{n}}}$$
+</font>
+
+## Ejemplo 1 ($\sigma_{\hat{\theta}}$ conocida).
+
+<font size=4>
+```{r, echo=TRUE, comment=""}
+media <- 2.68   #Media muestral
+theta0 <- 2     #Valor hipotético
+sigma <- 0.25   #desviación estandar poblacional
+n <- 100        #Tamaño de la muestra
+z <-(media - theta0)/(sigma/sqrt(n)) # = 27.2
+a <- 0.05           #Nivel de la prueba
+za <- qnorm(1-(a/2))#Valor z de tablas = 1.959964
+abs(z) > za
+```
+</font>
+Como $|z|>z_{\frac{\alpha}{2}}$, es decir = 27.2 > 1.9599, rechazamos la hipotesis nula $H_{0}: \theta = 2$. y aceptamos que lo que marca la etiqueta de galletas es incorrecto.
+
+
+## Prueba de Hipótesis ($\sigma_{\hat{\theta}}$ desconocida)
+
+Supongamos que $Y_{1}, Y_{2} \dots Y_{n}$ denotan una muestra aleatoria de tamaño $n$ de una distribución normal con media $\theta$ desconocida y varianza $\sigma^2$ desconocida. Si $\bar{Y}$ y $S$ denotan la media muestral y la desviación muestral estándar, respectivamente, y si $H_{0}: \theta = \theta_{0}$ es verdadera,entonces: $$t_{n-1}\sim\sqrt{n}\frac{\left(\bar{Y_{n}}-\theta \right)}{S_{n}}$$ tiene una distribución $t$ con $n-1$ grados de libertad. La región de rechazo adecuada para la alternativa de cola superior $H_{a}: \theta > \theta_{0}$ está dada por $\text{RR}\hspace{2mm}\{ t > t_{\alpha}  \}$.
+
+## Prueba de Hipótesis ($\sigma_{\hat{\theta}}$ desconocida)
+
+<font size=4>
+<div style="background-color:mistyrose;padding:4px;">
+<p>
+**Definición 3. ** Suposiciones: $Y_{1},Y_{2}, \dots , Y_{n}$ constituyen una muestra aleatoria de una distribución normal con $E(Y_{i})=\theta$.
+
+$H_{0}: \theta = \theta_{0}$
+
+$H_{a}: \begin{cases} 
+      \theta > \theta_{0}  & \text{(alternativa de cola superior).} \\
+      \theta < \theta_{0}  & \text{(alternativa de cola inferior).} \\ 
+      \theta \neq \theta_{0} & \text{(alternativa de dos colas).} 
+   \end{cases}$
+
+Estadístico de Prueba: $T=\sqrt{n}\frac{\left(\bar{Y_{n}}-\theta \right)}{S_{n}}$
+
+Región de rechazo: $\begin{cases}
+\{ t > t_{\alpha} \} & \text{(RR de cola superior.)}\\
+\{t < -t_{\alpha} \} & \text{(RR de cola inferior.)}\\
+\{|t| > t_{\frac{\alpha}{2}}\} & \text{(RR de dos colas.)}\\
+\end{cases}$
+
+</p>
+</div> 
+</font>
+
+
+
+## Ejemplo 2 ($\sigma_{\hat{\theta}}$ desconocida)
+
+Para el estudio de caso sobre el tratamiento de la anemia, se estableció el investigador se preguntó si era posible establecer que el valor esperado del conteo de plaquetas al inicio del tratameinto para algún paciente fuese menor a 150 unidades, es decir: $$H_{0}: \theta = 150 \hspace{3mm} \text{vs} \hspace{3mm} H_{a}: \theta < 150$$ La media $\bar{Y}=101.18$ y la desviasión estandar $S=19.20$. Estadístico de Prueba: $$T=\sqrt{n}\frac{\left(\bar{Y_{n}}-\theta \right)}{S_{n}}$$ y la región de rechazo será: $|t| > t_{\frac{\alpha}{2}}$.
+
+
+## Ejemplo 2 ($\sigma_{\hat{\theta}}$ desconocida)
+
+```{r, message=FALSE, echo=TRUE, comment=""}
+library(readr)
+anemia <- read_csv("anemia.csv")
+t <- ((mean(anemia$inicial) - 150) / sd(anemia$inicial))*
+  sqrt(length(anemia$inicial))
+t
+ta <- qt(1 - 0.05, df=length(anemia$inicial)-1) # ta = 1.671093
+t < -(ta)
+```
+
+Por tanto rechazamos $H_{0}$ y aceptamos que el valor esperado de conteo de plaquetas al inicio es menor a 150.
+
+## Referencias
+
+Wackerly, D., Mendenhall, W., & Scheaffer, R. L. (2010). *Estadística matemática con aplicaciones. Septima edición* México, D.F., Cengage Learning.
+
+OpenCourseWare, M. (2019). *Statistics for Applications*. [online] MIT OpenCourseWare. Available at: https://ocw.mit.edu/courses/mathematics/18-650-statistics-for-applications-fall-2016/index.htm [Accessed 1 Sep. 2019].
